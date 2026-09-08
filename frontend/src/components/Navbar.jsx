@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -121,13 +122,15 @@ const Navbar = () => {
               </div>
 
               <div className="flex items-center gap-4 pl-6 border-l border-gray-200">
-                <motion.button 
-                  whileHover={{ y: -1 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="text-gray-600 hover:text-indigo-600 font-semibold text-sm transition-colors duration-200"
-                >
-                  Login
-                </motion.button>
+                <Link to="/login">
+                  <motion.button 
+                    whileHover={{ y: -1 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="text-gray-600 hover:text-indigo-600 font-semibold text-sm transition-colors duration-200"
+                  >
+                    Login
+                  </motion.button>
+                </Link>
                 <motion.button 
                   whileHover={{ scale: 1.02, y: -1 }}
                   whileTap={{ scale: 0.98 }}
@@ -237,9 +240,11 @@ const Navbar = () => {
                   }}
                   className="pt-6 mt-4 border-t border-gray-100 flex flex-col gap-3"
                 >
-                  <button className="w-full text-center px-4 py-3.5 text-base font-semibold text-gray-700 border border-gray-200 rounded-2xl hover:bg-gray-50 hover:text-indigo-600 transition-colors active:scale-[0.98]">
-                    Login
-                  </button>
+                  <Link to="/login" className="w-full">
+                    <button className="w-full text-center px-4 py-3.5 text-base font-semibold text-gray-700 border border-gray-200 rounded-2xl hover:bg-gray-50 hover:text-indigo-600 transition-colors active:scale-[0.98]">
+                      Login
+                    </button>
+                  </Link>
                   <button className="w-full text-center px-4 py-3.5 text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-2xl shadow-md shadow-indigo-600/20 transition-colors active:scale-[0.98]">
                     Get Started
                   </button>
