@@ -1,39 +1,38 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Eye, EyeOff, Lock, Mail, Building2, BriefcaseBusiness, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, Eye, EyeOff, Lock, Mail, Building2, BriefcaseBusiness, Loader2, BookOpen, User } from 'lucide-react';
 
 const roleConfig = {
   student: {
-    title: 'Student Login',
+    title: 'Student Portal',
     emailLabel: 'Student Email',
     emailPlaceholder: 'Enter your email',
-    buttonText: 'Login as Student',
     icon: Mail,
-    footerText: "Don't have an account?",
-    footerLink: 'Create Account'
   },
   institution: {
-    title: 'Institution Login',
+    title: 'Institution Portal',
     emailLabel: 'Institution Email',
     emailPlaceholder: 'Enter institution email',
-    buttonText: 'Login as Institution',
     icon: Building2,
-    footerText: "New institution?",
-    footerLink: 'Register your institution'
   },
   industry: {
-    title: 'Industry Login',
+    title: 'Industry Portal',
     emailLabel: 'Business / Work Email',
     emailPlaceholder: 'Enter your work email',
-    buttonText: 'Login as Industry',
     icon: BriefcaseBusiness,
-    footerText: "New company?",
-    footerLink: 'Register your company'
+  },
+  academician: {
+    title: 'Faculty Portal',
+    emailLabel: 'Faculty / University Email',
+    emailPlaceholder: 'Enter your university email',
+    icon: BookOpen,
   }
 };
 
 const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [name, setName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -48,7 +47,7 @@ const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
     e.preventDefault();
     setError('');
     
-    if (!email || !password) {
+    if (!email || !password || (isSignUp && !name)) {
       setError('Please fill in all required fields.');
       return;
     }
@@ -59,6 +58,7 @@ const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
       setIsLoading(false);
       if (selectedRole === 'industry') navigate('/industry');
       else if (selectedRole === 'institution') navigate('/institution');
+      else if (selectedRole === 'academician') navigate('/academician');
       else navigate('/student');
     }, 1500);
   };
@@ -80,11 +80,40 @@ const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
       </button>
 
       <div className="mb-8 text-center lg:text-left">
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">{config.title}</h2>
-        <p className="text-gray-500">Enter your credentials to securely access your account.</p>
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">{isSignUp ? `Join as ${selectedRole}` : config.title}</h2>
+        <p className="text-gray-500">
+          {isSignUp ? 'Create your account to get started.' : 'Enter your credentials to securely access your account.'}
+        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-5">
+        <AnimatePresence>
+          {isSignUp && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, marginTop: 0 }}
+              animate={{ opacity: 1, height: 'auto', marginTop: '1.25rem' }}
+              exit={{ opacity: 0, height: 0, marginTop: 0 }}
+              className="overflow-hidden"
+            >
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Full Name <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                  <User size={20} />
+                </div>
+                <input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all"
+                  placeholder="Enter your full name"
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2">
             {config.emailLabel} <span className="text-red-500">*</span>
@@ -116,7 +145,7 @@ const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full pl-10 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all"
-              placeholder="Enter your password"
+              placeholder={isSignUp ? "Create a secure password" : "Enter your password"}
             />
             <button
               type="button"
@@ -144,9 +173,11 @@ const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
             </div>
             <span className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">Remember me</span>
           </label>
-          <a href="#" className="text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
-            Forgot Password?
-          </a>
+          {!isSignUp && (
+            <a href="#" className="text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">
+              Forgot Password?
+            </a>
+          )}
         </div>
 
         <button
@@ -154,35 +185,34 @@ const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
           disabled={isLoading}
           className="w-full flex justify-center items-center py-3.5 mt-4 rounded-xl text-white font-semibold bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/40 transition-all active:scale-[0.98] disabled:opacity-70 disabled:active:scale-100"
         >
-          {isLoading ? <Loader2 className="animate-spin" size={20} /> : config.buttonText}
+          {isLoading ? <Loader2 className="animate-spin" size={20} /> : (isSignUp ? "Create Account" : "Login")}
         </button>
       </form>
 
-      <div className="mt-8 flex flex-col items-center gap-4">
-        <div className="relative w-full flex items-center justify-center">
-          <div className="absolute w-full border-t border-gray-200"></div>
-          <span className="relative bg-white px-4 text-sm text-gray-400">Or continue with</span>
-        </div>
+      {!isSignUp && (
+        <div className="mt-8 flex flex-col items-center gap-4">
+          <div className="relative w-full flex items-center justify-center">
+            <div className="absolute w-full border-t border-gray-200"></div>
+            <span className="relative bg-white px-4 text-sm text-gray-400">Or continue with</span>
+          </div>
 
-        <button 
-          onClick={onSwitchToOTP}
-          className="w-full py-3 rounded-xl text-gray-700 font-semibold bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm active:scale-[0.98]"
-        >
-          Login with OTP
-        </button>
-      </div>
+          <button 
+            onClick={onSwitchToOTP}
+            className="w-full py-3 rounded-xl text-gray-700 font-semibold bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all shadow-sm active:scale-[0.98]"
+          >
+            Login with OTP
+          </button>
+        </div>
+      )}
 
       <p className="mt-8 text-center text-sm text-gray-600">
-        {config.footerText} 
+        {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
         <button 
-          onClick={() => {
-            if (selectedRole === 'industry') navigate('/industry');
-            else if (selectedRole === 'institution') navigate('/institution');
-            else navigate('/student');
-          }} 
+          onClick={() => setIsSignUp(!isSignUp)} 
+          type="button"
           className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
         >
-          {config.footerLink}
+          {isSignUp ? "Login here" : "Register now"}
         </button>
       </p>
     </motion.div>

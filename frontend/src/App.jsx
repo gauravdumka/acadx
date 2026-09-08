@@ -12,11 +12,14 @@ import ComingSoon from './components/student/ComingSoon';
 import IndustryLayout from './layouts/IndustryLayout';
 import IndustryDashboard from './pages/industry/IndustryDashboard';
 
+// Placeholder Portals
+import InstitutionLayout from './layouts/InstitutionLayout';
+import AcademicianLayout from './layouts/AcademicianLayout';
+
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       
       {/* Student Portal Routes */}
@@ -52,6 +55,12 @@ function App() {
         <Route path="notifications" element={<ComingSoon title="Notifications" />} />
         <Route path="settings" element={<ComingSoon title="Settings" />} />
       </Route>
+
+      {/* Institution Portal Route */}
+      <Route path="/institution" element={<InstitutionLayout />} />
+
+      {/* Academician Portal Route */}
+      <Route path="/academician" element={<AcademicianLayout />} />
     </Routes>
   );
 }
