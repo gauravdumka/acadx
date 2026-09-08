@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, School, BriefcaseBusiness, ArrowRight } from 'lucide-react';
+import { GraduationCap, School, BriefcaseBusiness, ArrowRight, BookOpen } from 'lucide-react';
 import RoleCard from './RoleCard';
 
 const roles = [
@@ -9,6 +9,12 @@ const roles = [
     title: "I'm a Student",
     description: "Access your skill profile, career recommendations, internships and opportunities.",
     icon: GraduationCap
+  },
+  {
+    id: "academician",
+    title: "I'm an Academician",
+    description: "Monitor student mentorship and browse faculty development programs.",
+    icon: BookOpen
   },
   {
     id: "institution",

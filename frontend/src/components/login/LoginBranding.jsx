@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence, useTransform } from 'framer-motion';
-import { GraduationCap, School, BriefcaseBusiness, Activity, CheckCircle2, TrendingUp, Users } from 'lucide-react';
+import { GraduationCap, School, BriefcaseBusiness, Activity, CheckCircle2, TrendingUp, Users, BookOpen } from 'lucide-react';
 
 const LoginBranding = ({ selectedRole, hoveredRole, parallaxX, parallaxY }) => {
   const activeRole = hoveredRole || selectedRole;
@@ -116,6 +116,25 @@ const LoginBranding = ({ selectedRole, hoveredRole, parallaxX, parallaxY }) => {
               strokeDasharray="4 4" 
               className="transition-colors duration-500"
             />
+            {/* Academician Connections */}
+            <motion.path 
+              variants={lineVariants}
+              d="M 120 180 Q 250 80 250 100" 
+              fill="none" 
+              stroke={activeRole === 'student' || activeRole === 'academician' ? '#fbbf24' : 'rgba(255,255,255,0.1)'} 
+              strokeWidth={activeRole === 'student' || activeRole === 'academician' ? 2 : 1} 
+              strokeDasharray="4 4" 
+              className="transition-colors duration-500"
+            />
+            <motion.path 
+              variants={lineVariants}
+              d="M 380 180 Q 250 80 250 100" 
+              fill="none" 
+              stroke={activeRole === 'institution' || activeRole === 'academician' ? '#fbbf24' : 'rgba(255,255,255,0.1)'} 
+              strokeWidth={activeRole === 'institution' || activeRole === 'academician' ? 2 : 1} 
+              strokeDasharray="4 4" 
+              className="transition-colors duration-500"
+            />
           </svg>
 
           {/* Ecosystem Nodes */}
@@ -134,6 +153,22 @@ const LoginBranding = ({ selectedRole, hoveredRole, parallaxX, parallaxY }) => {
               <GraduationCap className={activeRole === 'student' ? 'text-indigo-300' : 'text-white/50'} size={28} />
             </div>
             <span className={`text-xs font-semibold tracking-wider uppercase mt-4 transition-colors duration-500 ${activeRole === 'student' ? 'text-indigo-300' : 'text-white/40'}`}>Student</span>
+          </motion.div>
+
+          {/* ACADEMICIAN NODE */}
+          <motion.div 
+            animate={{ 
+              scale: activeRole === 'academician' ? 1.15 : activeRole ? 0.9 : 1,
+              opacity: activeRole === 'academician' ? 1 : activeRole ? 0.5 : 1,
+              y: activeRole === 'academician' ? -10 : 0
+            }}
+            transition={{ duration: 0.5, type: "spring" }}
+            className="absolute left-1/2 -translate-x-1/2 top-[5%] flex flex-col items-center z-10"
+          >
+            <div className={`w-14 h-14 rounded-2xl backdrop-blur-xl border flex items-center justify-center shadow-2xl transition-all duration-500 ${activeRole === 'academician' ? 'bg-amber-500/20 border-amber-400/50 shadow-amber-500/20' : 'bg-white/5 border-white/10'}`}>
+              <BookOpen className={activeRole === 'academician' ? 'text-amber-300' : 'text-white/50'} size={24} />
+            </div>
+            <span className={`text-xs font-semibold tracking-wider uppercase mt-3 transition-colors duration-500 ${activeRole === 'academician' ? 'text-amber-300' : 'text-white/40'}`}>Faculty</span>
           </motion.div>
 
           {/* INSTITUTION NODE */}
@@ -255,6 +290,31 @@ const LoginBranding = ({ selectedRole, hoveredRole, parallaxX, parallaxY }) => {
                 </div>
                 <div className="text-xs text-white/80"><span className="font-bold text-white">24</span> Candidates Match</div>
                 <div className="text-[10px] text-purple-300 mt-1">High Demand Skills Required</div>
+              </motion.div>
+            )}
+            {activeRole === 'academician' && (
+              <motion.div
+                key="academician-data"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                transition={{ duration: 0.4 }}
+                className="absolute left-[20%] top-[40%] w-56 bg-white/5 backdrop-blur-xl border border-amber-500/30 rounded-xl p-4 shadow-2xl z-20 pointer-events-none"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <BookOpen size={14} className="text-amber-400" />
+                  <span className="text-[10px] uppercase tracking-wider text-amber-300 font-bold">Faculty Mentorship</span>
+                </div>
+                <div className="space-y-3 mb-2">
+                  <div className="flex justify-between items-center bg-white/5 p-2 rounded-lg border border-white/5">
+                    <span className="text-xs text-white/80">Active Mentees</span>
+                    <span className="text-xs font-bold text-amber-400">42</span>
+                  </div>
+                  <div className="flex justify-between items-center bg-white/5 p-2 rounded-lg border border-white/5">
+                    <span className="text-xs text-white/80">FDPs Completed</span>
+                    <span className="text-xs font-bold text-amber-400">3</span>
+                  </div>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

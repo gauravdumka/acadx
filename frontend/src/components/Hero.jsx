@@ -20,27 +20,30 @@ const Hero = () => {
             className="max-w-2xl"
           >
             <div className="inline-flex items-center px-4 py-2 rounded-full bg-indigo-50 border border-indigo-100 mb-8 shadow-sm">
-              <span className="text-sm font-semibold text-indigo-600">Building Industry-Ready Talent</span>
+              <span className="text-sm font-semibold text-indigo-600">Verified Skill Intelligence</span>
             </div>
             
-            <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
-              Bridge the Gap Between <br/>
+            <h1 className="text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight mb-6 tracking-tight">
+              Bridging the gap between <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">
-                Skills & Opportunities
+                Academia and Industry
               </span>
             </h1>
             
-            <p className="text-xl text-gray-600 mb-10 leading-relaxed">
-              ACADEX connects students, colleges and industries through skill assessment, career discovery and real-world opportunities.
+            <p className="text-xl text-gray-600 mb-10 leading-relaxed font-light">
+              We connect students, educational institutions, and industries seamlessly using verifiable skill intelligence. Turn your self-declared skills into hired reality.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold text-lg shadow-lg shadow-indigo-600/30 transition-all hover:-translate-y-0.5">
-                Get Started
-              </button>
-              <button className="px-8 py-4 bg-white hover:bg-gray-50 text-gray-800 border border-gray-200 rounded-xl font-semibold text-lg shadow-sm transition-all hover:-translate-y-0.5">
-                Explore Opportunities
-              </button>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <a href="/login" className="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold text-center shadow-lg shadow-indigo-600/30 transition-all hover:-translate-y-0.5">
+                Join as Student
+              </a>
+              <a href="/login" className="px-6 py-3.5 bg-gray-900 hover:bg-gray-800 text-white rounded-xl font-semibold text-center shadow-lg transition-all hover:-translate-y-0.5">
+                Join as Company
+              </a>
+              <a href="/login" className="px-6 py-3.5 bg-white hover:bg-gray-50 text-gray-800 border border-gray-200 rounded-xl font-semibold text-center shadow-sm transition-all hover:-translate-y-0.5">
+                Join as Institution
+              </a>
             </div>
           </motion.div>
 
