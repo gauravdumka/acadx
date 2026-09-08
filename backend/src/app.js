@@ -13,10 +13,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+import authRoutes from './routes/authRoutes.js';
+
 // Health Check Route
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok', message: 'Server is running normally.' });
 });
+
+// API Routes
+app.use('/api/v1/auth', authRoutes);
 
 // Unhandled Routes
 app.all('*', (req, res, next) => {
