@@ -57,7 +57,9 @@ const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      navigate('/student');
+      if (selectedRole === 'industry') navigate('/industry');
+      else if (selectedRole === 'institution') navigate('/institution');
+      else navigate('/student');
     }, 1500);
   };
 
@@ -171,7 +173,17 @@ const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
       </div>
 
       <p className="mt-8 text-center text-sm text-gray-600">
-        {config.footerText} <button onClick={() => navigate('/student')} className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">{config.footerLink}</button>
+        {config.footerText} 
+        <button 
+          onClick={() => {
+            if (selectedRole === 'industry') navigate('/industry');
+            else if (selectedRole === 'institution') navigate('/institution');
+            else navigate('/student');
+          }} 
+          className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
+        >
+          {config.footerLink}
+        </button>
       </p>
     </motion.div>
   );
