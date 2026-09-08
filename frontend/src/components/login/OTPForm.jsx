@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Mail, Phone, Loader2 } from 'lucide-react';
 
@@ -10,6 +11,7 @@ const OTPForm = ({ selectedRole, onSwitchToPassword, onChangeRole }) => {
   const [countdown, setCountdown] = useState(30);
   const [error, setError] = useState('');
   const inputRefs = useRef([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let timer;
@@ -65,7 +67,7 @@ const OTPForm = ({ selectedRole, onSwitchToPassword, onChangeRole }) => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      console.log('Logged in with OTP:', { role: selectedRole, identifier, otp: otpString });
+      navigate('/student');
     }, 1500);
   };
 

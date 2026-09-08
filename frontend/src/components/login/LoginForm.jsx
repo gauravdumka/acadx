@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Eye, EyeOff, Lock, Mail, Building2, BriefcaseBusiness, Loader2 } from 'lucide-react';
 
@@ -38,6 +39,7 @@ const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const config = roleConfig[selectedRole];
   const EmailIcon = config.icon;
@@ -55,8 +57,7 @@ const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      // Mock successful login - would redirect in a real app
-      console.log('Logged in:', { role: selectedRole, email });
+      navigate('/student');
     }, 1500);
   };
 
@@ -170,7 +171,7 @@ const LoginForm = ({ selectedRole, onChangeRole, onSwitchToOTP }) => {
       </div>
 
       <p className="mt-8 text-center text-sm text-gray-600">
-        {config.footerText} <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">{config.footerLink}</a>
+        {config.footerText} <button onClick={() => navigate('/student')} className="font-semibold text-indigo-600 hover:text-indigo-700 transition-colors">{config.footerLink}</button>
       </p>
     </motion.div>
   );
