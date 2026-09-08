@@ -14,6 +14,7 @@ import IndustryDashboard from './pages/industry/IndustryDashboard';
 
 // Placeholder Portals
 import InstitutionLayout from './layouts/InstitutionLayout';
+import InstitutionDashboard from './pages/institution/InstitutionDashboard';
 import AcademicianLayout from './layouts/AcademicianLayout';
 
 function App() {
@@ -56,8 +57,23 @@ function App() {
         <Route path="settings" element={<ComingSoon title="Settings" />} />
       </Route>
 
-      {/* Institution Portal Route */}
-      <Route path="/institution" element={<InstitutionLayout />} />
+      {/* Institution Portal Routes */}
+      <Route path="/institution" element={<InstitutionLayout />}>
+        <Route index element={<InstitutionDashboard />} />
+        
+        {/* Placeholder Routes */}
+        <Route path="students" element={<ComingSoon title="Student Directory" />} />
+        <Route path="skills" element={<ComingSoon title="Skill Intelligence" />} />
+        <Route path="gaps" element={<ComingSoon title="Skill Gaps" />} />
+        <Route path="demand" element={<ComingSoon title="Industry Demand" />} />
+        <Route path="internships" element={<ComingSoon title="Internships" />} />
+        <Route path="placements" element={<ComingSoon title="Placements" />} />
+        <Route path="training" element={<ComingSoon title="Training Programs" />} />
+        <Route path="partners" element={<ComingSoon title="Industry Partners" />} />
+        <Route path="analytics" element={<ComingSoon title="Analytics" />} />
+        <Route path="reports" element={<ComingSoon title="Reports" />} />
+        <Route path="settings" element={<ComingSoon title="Settings" />} />
+      </Route>
 
       {/* Academician Portal Route */}
       <Route path="/academician" element={<AcademicianLayout />} />

@@ -1,22 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import InstitutionSidebar from '../components/institution/InstitutionSidebar';
+import InstitutionHeader from '../components/institution/InstitutionHeader';
+import { institutionData } from '../data/institutionMockData';
 
 const InstitutionLayout = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-      <div className="bg-white p-12 rounded-3xl shadow-xl max-w-2xl w-full text-center border border-gray-100">
-        <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-6">
-          <span className="text-4xl">🏛️</span>
-        </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Institution Dashboard</h1>
-        <p className="text-gray-500 mb-8 text-lg">
-          The high-level data visualization screen for colleges and universities. Aggregated Insights and Action Center coming soon.
-        </p>
-        <button className="px-6 py-3 bg-green-600 text-white font-semibold rounded-xl hover:bg-green-700 transition-colors">
-          Return Home
-        </button>
+    <div className="min-h-screen bg-gray-50 flex font-sans">
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block w-64 fixed inset-y-0 z-50">
+        <InstitutionSidebar />
       </div>
-      <Outlet />
+
+      {/* Mobile Sidebar Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-40 lg:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+      
+      {/* Mobile Sidebar */}
+      <div className={`fixed inset-y-0 left-0 w-64 bg-white z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${
+        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
+        <InstitutionSidebar onMobileClose={() => setIsMobileMenuOpen(false)} />
+      </div>
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-h-screen lg:pl-64 transition-all duration-300">
+        <InstitutionHeader 
+          institutionName={institutionData.profile.name}
+          adminName={institutionData.profile.adminName}
+          avatar={institutionData.profile.avatar}
+          location={institutionData.profile.location}
+          onMenuClick={() => setIsMobileMenuOpen(true)}
+        />
+        
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-hidden">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };
