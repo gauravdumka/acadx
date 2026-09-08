@@ -67,7 +67,9 @@ const OTPForm = ({ selectedRole, onSwitchToPassword, onChangeRole }) => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      navigate('/student');
+      if (selectedRole === 'industry') navigate('/industry');
+      else if (selectedRole === 'institution') navigate('/institution');
+      else navigate('/student');
     }, 1500);
   };
 

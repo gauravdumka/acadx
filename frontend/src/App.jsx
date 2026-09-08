@@ -8,6 +8,10 @@ import StudentDashboard from './pages/student/StudentDashboard';
 import StudentProfile from './pages/student/StudentProfile';
 import ComingSoon from './components/student/ComingSoon';
 
+// Industry Portal
+import IndustryLayout from './layouts/IndustryLayout';
+import IndustryDashboard from './pages/industry/IndustryDashboard';
+
 function App() {
   return (
     <Routes>
@@ -27,6 +31,24 @@ function App() {
         <Route path="opportunities" element={<ComingSoon title="Opportunities" />} />
         <Route path="learning" element={<ComingSoon title="Learning & Dev" />} />
         <Route path="applications" element={<ComingSoon title="Applications" />} />
+        <Route path="settings" element={<ComingSoon title="Settings" />} />
+      </Route>
+
+      {/* Industry Portal Routes */}
+      <Route path="/industry" element={<IndustryLayout />}>
+        <Route index element={<IndustryDashboard />} />
+        
+        {/* Placeholder Routes */}
+        <Route path="profile" element={<ComingSoon title="Company Profile" />} />
+        <Route path="demand" element={<ComingSoon title="Skill Demand" />} />
+        <Route path="jobs" element={<ComingSoon title="Jobs" />} />
+        <Route path="internships" element={<ComingSoon title="Internships" />} />
+        <Route path="candidates" element={<ComingSoon title="Talent Discovery" />} />
+        <Route path="applications" element={<ComingSoon title="Application Management" />} />
+        <Route path="learning" element={<ComingSoon title="Industry Learning Programs" />} />
+        <Route path="collaboration" element={<ComingSoon title="Academia Collaboration" />} />
+        <Route path="analytics" element={<ComingSoon title="Analytics" />} />
+        <Route path="notifications" element={<ComingSoon title="Notifications" />} />
         <Route path="settings" element={<ComingSoon title="Settings" />} />
       </Route>
     </Routes>
